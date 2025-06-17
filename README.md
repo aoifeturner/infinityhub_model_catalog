@@ -1,1 +1,1 @@
-# infinityhub_model_catalog
+# InfinityHub Model Catalog (WIP)
