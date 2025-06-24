@@ -8,11 +8,14 @@ def load_config(config_path="vllm_config.yaml"):
         return yaml.safe_load(f)
 
 def build_vllm_command(cfg):
+    # Always use Linux-style absolute paths for model and tokenizer
+    model_path = "/home/aoifeturner/infinityhub_model_catalog/models/deepseek-ai/deepseek-moe-16b-chat"
+    tokenizer_path = model_path
     cmd = [
-        "python", "-m", "vllm.entrypoints.openai.api_server",
-        "--model", cfg["model"],
+        "python3", "-m", "vllm.entrypoints.openai.api_server",
+        "--model", model_path,
         "--port", str(cfg.get("port", 8000)),
-        "--tokenizer", cfg.get("tokenizer", cfg["model"])
+        "--tokenizer", tokenizer_path
     ]
 
     if "dtype" in cfg:
@@ -39,8 +42,11 @@ def main():
     print("Launching vLLM with command:")
     print(" ".join(shlex.quote(arg) for arg in cmd))
 
-    # On Windows, use shell=True to run the command properly
-    subprocess.run(cmd, shell=True)
+    print("\n\ncmd: ", cmd)
+    # Set ROCm environment variable before launching
+    env = os.environ.copy()
+    env["VLLM_USE_ROCM"] = "1"
+    subprocess.run(cmd, shell=False, env=env)
 
 if __name__ == "__main__":
     main()

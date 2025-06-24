@@ -1,11 +1,12 @@
 #Used to configure a vllm backend server for the model. Change as needed.
 
-model: C:/Users/aoturner/infinityhub_model_catalog-1/models/deepseek-ai/deepseek-moe-16b-chat
+model: /home/aoifeturner/infinityhub_model_catalog/models/deepseek-ai/deepseek-moe-16b-chat
 port: 8000
+tokenizer: /home/aoifeturner/infinityhub_model_catalog/models/deepseek-ai/deepseek-moe-16b-chat
 dtype: float16
-tokenizer: C:/Users/aoturner/infinityhub_model_catalog-1/models/deepseek-ai/deepseek-moe-16b-chat
 tensor_parallel_size: 1
 gpu_memory_utilization: 0.9
 max_model_len: 4096
 extra_args:
   - --disable-log-requests
+
