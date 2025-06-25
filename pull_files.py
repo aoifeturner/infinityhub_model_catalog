@@ -1,30 +1,18 @@
 #Token authentification
 from huggingface_hub import HfApi, HfFolder, hf_hub_download
 import os
+import yaml
 
 HF_TOKEN = os.getenv('HF_TOKEN')
 if not HF_TOKEN:
         HF_TOKEN = input('Enter your Hugging Face token: ').strip()
 HfFolder.save_token(HF_TOKEN)
 
-model_ids = [
-    'Qwen/QwQ-32B', 
-    'Qwen/Qwen2-72B-Instruct',
-    'Qwen/Qwen2-7B-Instruct',
-    'google/gemma-2-27b',
-    'deepseek-ai/deepseek-moe-16b-chat',
-    'meta-llama/Llama-3.1-8B',
-    'meta-llama/Llama-3.1-70B-Instruct',
-    'meta-llama/Llama-3.1-405B-Instruct',
-    'meta-llama/Llama-3.2-11B-Vision-Instruct',
-    'meta-llama/Llama-2-7b-chat-hf',
-    'meta-llama/Llama-2-70b-chat-hf',
-    'amd/Llama-3.1-8B-Instruct-FP8-KV',
-    'amd/Llama-3.1-70B-Instruct-FP8-KV',
-    'amd/Llama-3.1-405B-Instruct-FP8-KV',
-]
+with open('model_ids.txt', 'r') as file:
+    model_ids = file.read().splitlines()
 
 for model_id in model_ids:
+    #Creating the model cards
     try: 
         print(f"Getting model card for: {model_id}...")
         # Download the README.md file directly
@@ -49,6 +37,32 @@ for model_id in model_ids:
         with open(filename, 'w', encoding='utf-8') as f:
             f.write(content)
         print(f"Saved model card to: {filename}")
+
+
+
+        #Creating the yaml files
+        yaml_content = {
+            'environment': {
+                'HIP_VISIBLE_DEVICES': "0",               # Optional, change if needed
+                'VLLM_USE_TRITON_FLASH_ATTN': "0",
+            },
+            'vllm_config': {
+                'model_id': model_id,                     # e.g., deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+                'served_model_name': model,               # e.g., deepseek-r1-distill-qwen-32b
+                'api_key': 'abc-123',
+                'port': 8000,
+                'trust_remote_code': True,
+                'tp': 8
+            }
+        }
+
+
+        #Same yaml file in proper folder
+        yaml_path = os.path.join(directory_path, "config.yaml")
+        with open(yaml_path, 'w', encoding='utf-8') as yf:
+            yaml.dump(yaml_content, yf, default_flow_style=False)
+        print(f"Saved config YAML to: {yaml_path}")
+
     except Exception as e:
         print(f"Error fetching model card for {model_id}: {e}")
         

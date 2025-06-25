@@ -1,0 +1,10 @@
+environment:
+  HIP_VISIBLE_DEVICES: '0'
+  VLLM_USE_TRITON_FLASH_ATTN: '0'
+vllm_config:
+  api_key: abc-123
+  model_id: google/gemma-3-27b-it
+  port: 8000
+  served_model_name: gemma-3-27b-it
+  tp: 8
+  trust_remote_code: true
