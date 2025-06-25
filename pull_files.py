@@ -43,16 +43,15 @@ for model_id in model_ids:
         #Creating the yaml files
         yaml_content = {
             'environment': {
-                'HIP_VISIBLE_DEVICES': "0",               # Optional, change if needed
-                'VLLM_USE_TRITON_FLASH_ATTN': "0",
+                'HIP_VISIBLE_DEVICES': "0",               # NOT IMPLEMENTED YET
+                'VLLM_USE_TRITON_FLASH_ATTN': "0"
             },
             'vllm_config': {
-                'model_id': model_id,                     # e.g., deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
-                'served_model_name': model,               # e.g., deepseek-r1-distill-qwen-32b
+                'model_id': model_id,                    
+                'served_model_name': model,              
                 'api_key': 'abc-123',
                 'port': 8000,
-                'trust_remote_code': True,
-                'tp': 8
+                'tp': 8                                   # NOT IMPLEMENTED YET
             }
         }
 

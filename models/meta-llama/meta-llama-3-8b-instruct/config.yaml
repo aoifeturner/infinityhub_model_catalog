@@ -7,4 +7,3 @@ vllm_config:
   port: 8000
   served_model_name: meta-llama-3-8b-instruct
   tp: 8
-  trust_remote_code: true

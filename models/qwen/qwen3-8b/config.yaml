@@ -7,4 +7,3 @@ vllm_config:
   port: 8000
   served_model_name: qwen3-8b
   tp: 8
-  trust_remote_code: true
