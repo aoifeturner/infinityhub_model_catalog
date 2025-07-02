@@ -56,10 +56,10 @@ def build_and_run_docker_command():
         '-v "$(pwd)":/workspace '
         '-w /workspace/notebooks '
         'rocm/vllm:latest '
-        f'bash -c "{vllm_command_escaped}"'
     )
 
     print(f"Running Docker command:\n{docker_command}\n")
+    print(f"\n\nInside docker command: \n{vllm_command_escaped}\n")
 
     # Run the docker command
     subprocess.run(docker_command, shell=True)
