@@ -20,20 +20,20 @@ This project automates the deployment of ML models through generating and config
 
 You only need to install requirements if you plan to update any of the `model_card.md` files or support additional model versions.
 
-#### 1. Create a Virtual Environment
+1. Create a Virtual Environment
 
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-#### 2. Inside the virtual environment, install the requirements
+2. Inside the virtual environment, install the requirements
 
 ```bash
 pip install -r requirements.txt
 ```
 
-#### 3. Support More Models (if needed)
+3. Support More Models (if needed)
 If you hope to support more models, update the model_ids.txt. You can use nano as a text editor. On a new line, copy and paste the exact model name from HuggingFace. It should look like Organization/Model-Name. Make sure to save your changes.
 
 ```bash
@@ -41,13 +41,15 @@ nano model_ids.txt
 ```
 
 Update the model cards. Do this if you want to update existing model cards or after you have included another model to support. This will update the model’s README.md files and reset their  config.yaml files.
+
 ```bash
 python3 pull_files.py
 ```
+
 You will be asked to include a HuggingFace token as input. Add as needed.
 Newly added models should be found under infinityhub_model_catalog/models. 
 
-#### 4. Deactivate the Virtual Environment.
+4. Deactivate the Virtual Environment.
 Once you have checked that it was updated accordingly, deactivate the venv.
 ```bash
 deactivate
@@ -55,17 +57,17 @@ deactivate
 ---
 ### Launching Models
 
-#### Time to launch the models. In the place that says [insert hf model name], add the exact model name from HuggingFace. It should look like Organization/Model-Name. This tells the computer which model you hope to run.
+1. Launch the python file. In the place that says [insert hf model name], add the exact model name from HuggingFace. It should look like Organization/Model-Name. This tells the computer which model you hope to run.
 ```bash
 cd infinityhub_model_catalog
 python3 launch_command.py [insert hf model name]
 ```
-#### Once loaded, ssh into the same droplet on a separate terminal. Your ML is now running. You can now ask it questions (must be prompted in proper format, see model’s specific details).
+2. Use the model. Once loaded, ssh into the same droplet on a separate terminal. Your ML is now running. You can now ask it questions (must be prompted in proper format, see model’s specific details).
 
 ---
 ## Configurations
 
-#### Changing the config.yaml files. So far, they look like this:
+1. Changing the config.yaml files. So far, they look like this:
 ```bash
 environment:
     HIP_VISIBLE_DEVICES: '0'
@@ -78,8 +80,8 @@ vllm_config:
     tp: 8
 ```
 
-#### As this is a WIP, Tensor Parallel (tp) and HIP_VISIBLE_DEVICES has not been properly implemented. In the future, this will allow users to specify the number of GPU nodes they want used/which they want used. For now, to change the port that the model runs on, simply change the port on the yaml file before launching. 
+As this is a WIP, Tensor Parallel (tp) and HIP_VISIBLE_DEVICES has not been properly implemented. In the future, this will allow users to specify the number of GPU nodes they want used/which they want used. For now, to change the port that the model runs on, simply change the port on the yaml file before launching. 
 
 ---
 ## Contact
-#### Contact aoturner@amd.com with inquiries. This is a WIP and a small scale of the final product.
+Contact aoturner@amd.com with inquiries. This is a WIP and a small scale of the final product.
