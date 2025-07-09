@@ -57,12 +57,16 @@ deactivate
 ---
 ### Launching Models
 
-1. Launch the python file. In the place that says [insert hf model name], add the exact model name from HuggingFace. It should look like Organization/Model-Name. This tells the computer which model you hope to run.
+1. Set an environmental variable with your huggingface token, if needed to access the model.
+```bash
+export HF_TOKEN=[insert token here]
+```
+2. Launch the python file. In the place that says [insert hf model name], add the exact model name from HuggingFace. It should look like Organization/Model-Name. This tells the computer which model you hope to run.
 ```bash
 cd infinityhub_model_catalog
 python3 launch_command.py [insert hf model name]
 ```
-2. Use the model. Once loaded, ssh into the same droplet on a separate terminal. Your ML is now running. You can now ask it questions (must be prompted in proper format, see model’s specific details).
+3. Use the model. Once loaded, ssh into the same droplet on a separate terminal. Your ML is now running. You can now ask it questions (must be prompted in proper format, see model’s specific details).
 
 ---
 ## Configurations
