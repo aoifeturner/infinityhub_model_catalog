@@ -3,10 +3,6 @@ from huggingface_hub import HfApi, HfFolder, hf_hub_download
 import os
 import yaml
 
-HF_TOKEN = os.getenv('HF_TOKEN')
-if not HF_TOKEN:
-        HF_TOKEN = input('Enter your Hugging Face token: ').strip()
-HfFolder.save_token(HF_TOKEN)
 
 with open('model_ids.txt', 'r') as file:
     model_ids = file.read().splitlines()
@@ -54,7 +50,6 @@ for model_id in model_ids:
                 'tp': 8                                   # NOT IMPLEMENTED YET
             }
         }
-
 
         #Same yaml file in proper folder
         yaml_path = os.path.join(directory_path, "config.yaml")

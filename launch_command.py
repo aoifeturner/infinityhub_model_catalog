@@ -1,6 +1,7 @@
 import yaml
 import sys
 import os
+from huggingface_hub import HfApi, HfFolder, hf_hub_download
 
 DOCKER_BASE_COMMAND = r"""docker run -it --rm \
   --network=host \
@@ -11,6 +12,7 @@ DOCKER_BASE_COMMAND = r"""docker run -it --rm \
   --cap-add=SYS_PTRACE \
   --security-opt seccomp=unconfined \
   --shm-size 8G \
+  -e HF_TOKEN=$HF_TOKEN \
   -v $(pwd):/workspace \
   -w /workspace/notebooks \
   rocm/vllm:latest \
@@ -24,13 +26,14 @@ def build_vllm_command(config):
     env_vars_to_include = ["VLLM_USE_TRITON_FLASH_ATTN"]
     filtered_env = {k: v for k, v in env.items() if k in env_vars_to_include}
     env_str = " ".join(f"{k}={v}" for k, v in filtered_env.items())
-
+    
     model_id = vllm.get("model_id")
     served_model_name = vllm.get("served_model_name")
     api_key = vllm.get("api_key")
     port = vllm.get("port")
 
     vllm_command = f"{env_str} vllm serve {model_id} --served-model-name {served_model_name} --api-key {api_key} --port {port} --trust-remote-code"
+
     return vllm_command.strip()
 
 def main():
