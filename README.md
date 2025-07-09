@@ -63,9 +63,9 @@ python3 launch_command.py [insert hf model name]
 #### Once loaded, ssh into the same droplet on a separate terminal. Your ML is now running. You can now ask it questions (must be prompted in proper format, see model’s specific details).
 
 ---
-### Configurations
+## Configurations
 
-#### Changing the config.yaml files. SO far, they look like this:
+#### Changing the config.yaml files. So far, they look like this:
 ```bash
 environment:
     HIP_VISIBLE_DEVICES: '0'
@@ -81,5 +81,5 @@ vllm_config:
 #### As this is a WIP, Tensor Parallel (tp) and HIP_VISIBLE_DEVICES has not been properly implemented. In the future, this will allow users to specify the number of GPU nodes they want used/which they want used. For now, to change the port that the model runs on, simply change the port on the yaml file before launching. 
 
 ---
-### Contact
+## Contact
 #### Contact aoturner@amd.com with inquiries. This is a WIP and a small scale of the final product.
