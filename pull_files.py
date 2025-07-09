@@ -34,12 +34,10 @@ for model_id in model_ids:
             f.write(content)
         print(f"Saved model card to: {filename}")
 
-
-
         #Creating the yaml files
         yaml_content = {
             'environment': {
-                'HIP_VISIBLE_DEVICES': "0",               # NOT IMPLEMENTED YET
+                'HIP_VISIBLE_DEVICES': "0",         # NOT IMPLEMENTED YET
                 'VLLM_USE_TRITON_FLASH_ATTN': "0"
             },
             'vllm_config': {
@@ -47,7 +45,7 @@ for model_id in model_ids:
                 'served_model_name': model,              
                 'api_key': 'abc-123',
                 'port': 8000,
-                'tp': 8                                   # NOT IMPLEMENTED YET
+                'tp': 8                             # NOT IMPLEMENTED YET
             }
         }
 

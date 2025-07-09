@@ -1,7 +1,6 @@
 import yaml
 import sys
 import os
-from huggingface_hub import HfApi, HfFolder, hf_hub_download
 
 DOCKER_BASE_COMMAND = r"""docker run -it --rm \
   --network=host \
@@ -38,10 +37,10 @@ def build_vllm_command(config):
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: python launch_command.py path/to/config.yaml")
+        print("Usage: python launch_command.py model_name_on_hf")
         sys.exit(1)
 
-    yaml_path = sys.argv[1]
+    yaml_path = "models/" + sys.argv[1].lower() + "/config.yaml"
 
     try:
         with open(yaml_path, "r") as f:
